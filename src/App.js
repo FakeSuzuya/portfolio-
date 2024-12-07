@@ -1,16 +1,33 @@
-import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Home from "./pages/Home";
-import NotFound from "./pages/NotFound";
+import React, { useState } from "react";
+import Preloader from "./components/Preloader";
+import Navbar from "./components/Navbar";
+import About from "./components/About";
+import Skills from "./components/Skills";
+import Projects from "./components/Projects";
+import Contact from "./components/Contact";
+
 
 const App = () => {
+  const [isLoading, setIsLoading] = useState(true);
+
+  const handlePreloaderFinish = () => {
+    setIsLoading(false);
+  };
+
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </Router>
+    <>
+      {isLoading ? (
+        <Preloader onFinish={handlePreloaderFinish} />
+      ) : (
+        <div>
+          <Navbar />
+          <About />
+          <Skills />
+          <Projects />
+          <Contact />
+        </div>
+      )}
+    </>
   );
 };
 
